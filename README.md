@@ -3,6 +3,7 @@ Extra Dimensions Minecraft Mod
 
 Allows dynamic creation and deletion of dimensions via commands (restricted to ops in multiplayer).  Adds the following commands:
 
+```
 xdbiomes
   list all biomes supported by ExtraDimensions
 
@@ -40,7 +41,7 @@ xdtp <target player name> <destination dimension (name or ID)> <x> <y> <z>
      <destination player name>            - required.  Teleport to position of player, regarless of what dimensions
      <destination dimension (name or ID)> - required.  ExtraDimension to teleport to.  0 or overworld will go to overworld
      <x> <y> <z>                          - optional.  Position to teleport to
-     
+```
 
 
 Known issues:  Not tested enough, so probably lots of issues.
