@@ -1,0 +1,16 @@
+[
+{
+  "modid": "extraDimensions",
+  "name": "ExtraDimensions",
+  "description": "Adds extra dimensions to Minecraft.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["worldwidewoogie"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
