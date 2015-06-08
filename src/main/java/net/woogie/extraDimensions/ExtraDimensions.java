@@ -40,7 +40,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "extraDimensions", version = "1.7.10.0", name = "ExtraDimensions", useMetadata = true, dependencies = "required-after:Forge@[10.12.0.1024,);after:TooManyBiomes;after:BiomesOPlenty")
+@Mod(modid = "extraDimensions", version = "0.0.2", name = "ExtraDimensions", useMetadata = true, dependencies = "required-after:Forge@[10.12.0.1024,);after:TooManyBiomes;after:BiomesOPlenty")
 public class ExtraDimensions {
 
 	@SidedProxy(clientSide = "net.woogie.extraDimensions.ClientProxy", serverSide = "net.woogie.extraDimensions.CommonProxy")
