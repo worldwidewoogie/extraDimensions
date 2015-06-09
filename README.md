@@ -44,4 +44,3 @@ xdtp <target player name> <destination dimension (name or ID)> <x> <y> <z>
 ```
 
 
-Known issues:  Not tested enough, so probably lots of issues.
