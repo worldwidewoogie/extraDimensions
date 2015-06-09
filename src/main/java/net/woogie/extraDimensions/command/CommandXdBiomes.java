@@ -35,32 +35,6 @@ public class CommandXdBiomes extends CommandBase {
 					new Object[0]);
 		}
 
-		// if (args.length > 0) {
-		// int page = parseIntWithMin(agent, args[0], 1);
-		// page--;
-		// BiomeGenBase[] biomes = BiomeGenBase.getBiomeGenArray();
-		// String biomeNames = "";
-		// boolean[] table = new boolean[256];
-		//
-		// int total = 0;
-		// for (int i = 0; i < biomes.length; i++) {
-		// if (biomes[i] != null) {
-		// table[i] = true;
-		// total++;
-		// if ((total >= page * 10) && (total <= 10 + page * 10)) {
-		// biomeNames = biomeNames + i + "=" + biomes[i].biomeName
-		// + " ";
-		// }
-		// }
-		// }
-		// if (total % 10 > 0) {
-		// total = total - total % 10 + 10;
-		// }
-		// agent.addChatMessage(new ChatComponentText("Biomes (" + (page + 1)
-		// + "/" + total / 10 + "): " + biomeNames));
-		// return;
-		// }
-
 		BiomeGenBase[] biomes = BiomeGenBase.getBiomeGenArray();
 		String biomeNames = "";
 		for (int i = 0; i < biomes.length; i++) {
