@@ -13,7 +13,12 @@ public class CommandXdCreate extends CommandBase {
 	public boolean canCommandSenderUseCommand(ICommandSender agent) {
 
 		if (MinecraftServer.getServer().isSinglePlayer()
-				|| agent.canCommandSenderUseCommand(2, "")) {
+				|| MinecraftServer
+						.getServer()
+						.getConfigurationManager()
+						.func_152596_g(
+								getPlayer(agent, agent.getCommandSenderName())
+										.getGameProfile())) {
 			return true;
 		}
 		return false;

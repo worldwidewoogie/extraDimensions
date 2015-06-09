@@ -28,14 +28,6 @@ public class CommandXdTp extends CommandBase {
 		return true;
 	}
 
-	private ChunkCoordinates getAirBlocks(World world, ChunkCoordinates spawn) {
-		while ((world.isAirBlock(spawn.posX, spawn.posY - 1, spawn.posZ))
-				&& (spawn.posY > 0)) {
-			spawn.posY -= 1;
-		}
-		return spawn;
-	}
-
 	@Override
 	public String getCommandName() {
 		return "xdtp";
@@ -43,29 +35,30 @@ public class CommandXdTp extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender agent) {
-		return "/"
-				+ getCommandName()
-				+ " <target player name> [destination player name]"
-				+ " OR "
-				+ "/"
-				+ getCommandName()
-				+ " <target player name> [destination dimension (name or ID)] <x> <y> <z>";
+		if (MinecraftServer.getServer().isSinglePlayer()
+				|| !MinecraftServer
+						.getServer()
+						.getConfigurationManager()
+						.func_152596_g(
+								getPlayer(agent, agent.getCommandSenderName())
+										.getGameProfile())) {
+			return "/" + getCommandName() + " [destination player name]"
+					+ " OR " + "/" + getCommandName()
+					+ " [destination dimension (name or ID)] <x> <y> <z>";
+		} else {
+			return "/"
+					+ getCommandName()
+					+ " <target player name> [destination player name]"
+					+ " OR "
+					+ "/"
+					+ getCommandName()
+					+ " <target player name> [destination dimension (name or ID)] <x> <y> <z>";
+		}
 	}
 
 	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
-	}
-
-	private ChunkCoordinates getSolidBlocks(World world, ChunkCoordinates spawn) {
-		while ((world.blockExists(spawn.posX, spawn.posY, spawn.posZ))
-				&& (spawn.posY < 256)) {
-			spawn.posY += 1;
-		}
-		if (!world.provider.isHellWorld) {
-			spawn.posY = world.getTopSolidOrLiquidBlock(spawn.posX, spawn.posZ);
-		}
-		return spawn;
 	}
 
 	@Override
@@ -77,6 +70,20 @@ public class CommandXdTp extends CommandBase {
 			EntityPlayerMP player;
 
 			if ((args.length == 2) || (args.length == 5)) {
+
+				if (MinecraftServer.getServer().isSinglePlayer()
+						|| !MinecraftServer
+								.getServer()
+								.getConfigurationManager()
+								.func_152596_g(
+										getPlayer(agent,
+												agent.getCommandSenderName())
+												.getGameProfile())) {
+
+					throw new WrongUsageException("Usage: "
+							+ getCommandUsage(agent), new Object[0]);
+
+				}
 
 				player = getPlayer(agent, args[0]);
 				dimArg = args[1];
@@ -109,7 +116,7 @@ public class CommandXdTp extends CommandBase {
 			if (dimArg.equals("0") || dimArg.equals("overworld")) {
 				dim = 0;
 			}
-			
+
 			if (!(ExtraDimensionsUtil.getDimensionIds().contains(
 					Integer.valueOf(dim))
 					|| dimArg.equals("0") || dimArg.equals("overworld"))) {
@@ -186,8 +193,19 @@ public class CommandXdTp extends CommandBase {
 					spawn = nextWorld.getSpawnPoint();
 				}
 
-				spawn = getSolidBlocks(nextWorld.provider.worldObj, spawn);
-				spawn = getAirBlocks(nextWorld.provider.worldObj, spawn);
+				while ((nextWorld.blockExists(spawn.posX, spawn.posY,
+						spawn.posZ)) && (spawn.posY < 256)) {
+					spawn.posY += 1;
+				}
+				if (!nextWorld.provider.isHellWorld) {
+					spawn.posY = nextWorld.getTopSolidOrLiquidBlock(spawn.posX,
+							spawn.posZ);
+				}
+
+				while ((nextWorld.isAirBlock(spawn.posX, spawn.posY - 1,
+						spawn.posZ)) && (spawn.posY > 0)) {
+					spawn.posY -= 1;
+				}
 
 				EntityPlayerMP playerMP = (EntityPlayerMP) player;
 
@@ -197,7 +215,6 @@ public class CommandXdTp extends CommandBase {
 								+ " to "
 								+ nextWorld.getWorldInfo().getWorldName()
 								+ " (" + nextDimension + ")");
-
 
 				playerMP.mcServer.getConfigurationManager()
 						.transferPlayerToDimension(playerMP, nextDimension,
